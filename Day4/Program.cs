@@ -1,4 +1,5 @@
 ﻿using Day4.DataAccess;
+using Day4.DataProcessing;
 
 Console.WriteLine("Beginning Program!");
 
@@ -7,4 +8,5 @@ string filePath = "C:\\Users\\Kieran Edge\\source\\repos\\AdventOfCode2023\\Day4
 TextFileToArray dataAccess = new TextFileToArray(filePath);
 string[] textFileLines = dataAccess.Data;
 
-
+// Processing the data line by line
+DataProcessor dataProcessor = new DataProcessor(textFileLines[0]);
