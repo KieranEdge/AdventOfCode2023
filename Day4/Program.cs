@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Day4.DataAccess;
+
+Console.WriteLine("Beginning Program!");
+
+// Processing the file into an array of strings per line
+string filePath = "C:\\Users\\Kieran Edge\\source\\repos\\AdventOfCode2023\\Day4\\Day4_data.txt";
+TextFileToArray dataAccess = new TextFileToArray(filePath);
+string[] textFileLines = dataAccess.Data;
+
+
