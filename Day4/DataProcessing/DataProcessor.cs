@@ -41,8 +41,6 @@ namespace Day4.DataProcessing
                 _index++;
                 Console.WriteLine($"{_winningNumbers} found, adding cards to the end of the list");
                 Console.WriteLine($"{_indicesOfCards.Count} Scratchcards now in pack");
-                Console.WriteLine($"{_indicesOfCards.Last()} Is the final index");
-                _finished = true;
             }
         }
 
@@ -74,6 +72,7 @@ namespace Day4.DataProcessing
         private void EndOfCards()
         {
             // Function to check if there are any more cards to add
+            Console.WriteLine($"Index Number {_index} out of {_indicesOfCards.Count()}"); 
             if(_index == _indicesOfCards.Count())
             {
                 _finished = true;
