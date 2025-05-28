@@ -3,21 +3,29 @@ using Day_6.Processor;
 
 // Extracting the data to arrays
 string filePath = "C:\\Users\\Kieran Edge\\source\\repos\\AdventOfCode2023\\Day 6\\Day6_Data.txt";
-DataAccessor dataAccessor = new DataAccessor(filePath);
-int[] timeInts = dataAccessor.timeInts;
-int[] distInts = dataAccessor.distanceInts;
-int numberOfRaces = timeInts.Length;
-List<int> possibleVictories = new List<int>();
 int runningTotal = 1;
 
-for (int i = 0; i < numberOfRaces; i++)
-{
-    possibleVictories.Add(RaceAnalysis.VelocityIterator(timeInts[i], distInts[i]));
-}
+// PART 1
+//IndividualRaces dataAccessor = new IndividualRaces(filePath);
+//int[] timeInts = dataAccessor.timeInts;
+//int[] distInts = dataAccessor.distanceInts;
+//int numberOfRaces = timeInts.Length;
+//List<int> possibleVictories = new List<int>();
+//for (int i = 0; i < numberOfRaces; i++)
+//{
+//    possibleVictories.Add(RaceAnalysis.VelocityIterator(timeInts[i], distInts[i]));
+//}
 
-foreach (int victory in possibleVictories)
-{
-    runningTotal = runningTotal * victory;
-}
+//foreach (int victory in possibleVictories)
+//{
+//    runningTotal = runningTotal * victory;
+//}
 
-Console.WriteLine($"Total value of races: {runningTotal}");
+// Part 2
+CombinedRace combinedRace = new CombinedRace(filePath);
+long timeInt = combinedRace.timeInt;
+long distInt = combinedRace.distanceInt;
+
+long possibleVictories = RaceAnalysis.VelocityIterator(timeInt, distInt);
+
+Console.WriteLine($"Total value of races: {possibleVictories}");

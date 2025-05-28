@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace Day_6.Data
 {
-    public class DataAccessor
+    public class IndividualRaces
     {
         private string _filePath;
         public int[] timeInts;
         public int[] distanceInts;
         private string[] _timeAndDistanceText;
 
-        public DataAccessor(string filePath) 
+        public IndividualRaces(string filePath) 
         {
             _filePath = filePath;
             _timeAndDistanceText = File.ReadAllLines(_filePath);
