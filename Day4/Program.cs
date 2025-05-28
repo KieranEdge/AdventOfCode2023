@@ -11,8 +11,5 @@ TextFileToArray dataAccess = new TextFileToArray(filePath);
 string[] textFileLines = dataAccess.Data;
 
 // Processing the data line by line
-DataProcessor dataProcessor = new DataProcessor();
-foreach (string line in textFileLines)
-{
-    dataProcessor.Process(line);
-}
+DataProcessor dataProcessor = new DataProcessor(textFileLines);
+dataProcessor.ProcessorOfCard();

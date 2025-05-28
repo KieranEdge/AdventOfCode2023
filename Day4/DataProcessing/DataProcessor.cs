@@ -12,6 +12,26 @@ namespace Day4.DataProcessing
         private int[]? _winningNumbersInts;
         private int _winningNumbers = 0;
         private int _totalPoints = 0;
+        private List<int>? _indicesOfCards = new List<int>();
+        private string[] _cardsToProcess;
+        private bool _finished = false;
+
+        public DataProcessor(string[] cardsToProcess)
+        {
+            _cardsToProcess = cardsToProcess;
+            for (int i = 0; i < _cardsToProcess.Length; i++)
+            {
+                _indicesOfCards.Add(i);
+            }
+        }
+
+        public void ProcessorOfCard()
+        {
+            foreach(int i in _indicesOfCards)
+            {
+                Console.WriteLine(i);
+            }
+        }
 
         public void Process(string FileLineToProcess)
         {
@@ -23,8 +43,7 @@ namespace Day4.DataProcessing
 
         private void StringSplitter(string FileLineToProcess)
         {
-            // Expecting strings in the form of
-            //Card   1: 30 48 49 69  1 86 94 68 12 85 | 86 57 89  8 81 85 82 68  1 22 90  2 74 12 30 45 69 92 62  4 94 48 47 64 49
+            // Function for getting an array of winning numbers and reference numbers
             string combinedNumbersString = FileLineToProcess.Split(':')[1];
 
             _referenceNumbersInts = StringOfNumbersIntoArray(combinedNumbersString.Split('|')[0]);
@@ -33,11 +52,13 @@ namespace Day4.DataProcessing
 
         public int ReturnTotalScore()
         {
+            // Return function for the total score
             return _totalPoints;
         }
 
         private int[] StringOfNumbersIntoArray(string NumbersStringToSplit)
         {
+            // Function for splitting the numbers from the substrings into an array
             string[] numbers = NumbersStringToSplit.Split(null);
             List<int> numbersList = new List<int>();
 
@@ -53,6 +74,7 @@ namespace Day4.DataProcessing
 
         private void ReferenceNumberInWinningList(int referenceNumber)
         {
+            // Checking if a given number is in the reference list
             if (_winningNumbersInts.Contains(referenceNumber))
             {
                 _winningNumbers++;
@@ -61,6 +83,7 @@ namespace Day4.DataProcessing
 
         private void ProcessReferenceNumbers()
         {
+            // Function for iterating over a list of reference numbers
             foreach (int referenceNumber in _referenceNumbersInts)
             {
                 ReferenceNumberInWinningList(referenceNumber);
@@ -69,6 +92,7 @@ namespace Day4.DataProcessing
 
         private void PointsTotal()
         {
+            // Function for adding points based on number of identified matches
             Console.WriteLine($"Total number of winning number: {_winningNumbers}");
             _totalPoints = _totalPoints +  (int)Math.Pow(2, _winningNumbers - 1);
             Console.WriteLine($"Giving a total running score of: {_totalPoints}");
