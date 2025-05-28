@@ -15,24 +15,71 @@ namespace Day4.DataProcessing
         private List<int>? _indicesOfCards = new List<int>();
         private string[] _cardsToProcess;
         private bool _finished = false;
+        private int _index = 0;
+        private int _originalLength;
 
         public DataProcessor(string[] cardsToProcess)
         {
             _cardsToProcess = cardsToProcess;
-            for (int i = 0; i < _cardsToProcess.Length; i++)
+            _originalLength = cardsToProcess.Length;
+            for (int i = 0; i < _originalLength; i++)
             {
                 _indicesOfCards.Add(i);
             }
         }
 
-        public void ProcessorOfCard()
+        public void ProcessorOfCards()
         {
-            foreach(int i in _indicesOfCards)
+            while (!_finished)
             {
-                Console.WriteLine(i);
+                //Processing the scratchcard at the index as dictated by the index of cards list which is being generated
+                _winningNumbers = 0;
+                StringSplitter(_cardsToProcess[_indicesOfCards[_index]]);
+                ProcessReferenceNumbers();
+                IndexAdder(_indicesOfCards[_index]);
+                EndOfCards();
+                _index++;
+                Console.WriteLine($"{_winningNumbers} found, adding cards to the end of the list");
+                Console.WriteLine($"{_indicesOfCards.Count} Scratchcards now in pack");
+                Console.WriteLine($"{_indicesOfCards.Last()} Is the final index");
+                _finished = true;
             }
         }
 
+        private void IndexAdder(int scratchCardNumber)
+        {
+            // Function for adding the next winning number of scratch cards to the end of the list
+            if (_winningNumbers > 0)
+            {
+                if (scratchCardNumber + _winningNumbers < _originalLength)
+                {
+                    // Adding the cards if in range
+                    for (int i = scratchCardNumber + 1; i <= scratchCardNumber + _winningNumbers; i++)
+                    {
+                        _indicesOfCards.Add(i);
+                    }
+                }
+                else
+                {
+                    // Adding the cards to the end of the list
+                    for (int i = scratchCardNumber + 1; i < _originalLength; i++)
+                    {
+                        _indicesOfCards.Add(i);
+                    }
+                }
+                
+            }
+        }
+
+        private void EndOfCards()
+        {
+            // Function to check if there are any more cards to add
+            if(_index == _indicesOfCards.Count())
+            {
+                _finished = true;
+            }
+            
+        }
         public void Process(string FileLineToProcess)
         {
             _winningNumbers = 0;

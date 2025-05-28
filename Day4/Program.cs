@@ -12,4 +12,4 @@ string[] textFileLines = dataAccess.Data;
 
 // Processing the data line by line
 DataProcessor dataProcessor = new DataProcessor(textFileLines);
-dataProcessor.ProcessorOfCard();
+dataProcessor.ProcessorOfCards();
