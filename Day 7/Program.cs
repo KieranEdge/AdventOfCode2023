@@ -6,6 +6,7 @@ string filePath = "C:\\Users\\Kieran Edge\\source\\repos\\AdventOfCode2023\\Day 
 DataAccess dataAccess = new DataAccess(filePath);
 string[] handArray = dataAccess.cardHands;
 int[] gambitsArray = dataAccess.gambits;
+string[] sortedHandArray = new string[handArray.Length];
 
 // Processing the hands
 HandFinder handFinder = new HandFinder();
