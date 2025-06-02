@@ -43,10 +43,49 @@ namespace Day9.SequenceAnalyser
 
             valueToAddForPrediction = CalculateNextValue(lastNumbers);
 
-            return lastNumberInOriginalSequence + valueToAddForPrediction;
-            
+            return lastNumberInOriginalSequence + valueToAddForPrediction;    
         }
+        public static int GetPreviousValueInSequence(int[] sequence)
+        {
+            // Getting the initial list and initial last value
+            List<int> NextSequenceToInspect = sequence.ToList();
+            int firstNumberInOriginalSequence = NextSequenceToInspect.First();
+            int valueToSubtractForPrediction;
 
+            // Going to add the last number of each list to the last number
+            List<int> firstNumbers = new List<int>();
+            bool allZeros = false;
+
+            while (!allZeros)
+            {
+                // Initiating a list of differences
+                List<int> listOfDifferences = new List<int>();
+
+                // Creating a list of differences
+                for (int i = 0; i < NextSequenceToInspect.Count - 1; i++)
+                {
+                    listOfDifferences.Add(NextSequenceToInspect[i + 1] - NextSequenceToInspect[i]);
+                }
+
+                // Updating the next list to inspect from the difference list above
+                NextSequenceToInspect = listOfDifferences;
+
+                // Adding the last number of the differences to the list
+                firstNumbers.Add(listOfDifferences.First());
+
+                // Checking if the list is all zeros
+                allZeros = IsArrayZero(listOfDifferences);
+
+            }
+            
+            int prediction = 0;
+            for (int i = firstNumbers.Count - 1; i >= 0; i--)
+            {
+                prediction = firstNumbers[i] - prediction;
+            }
+
+            return firstNumberInOriginalSequence - prediction;
+        }
         private static bool IsArrayZero(List<int> listToInspect)
         {
             // Method to check if all array is 0
