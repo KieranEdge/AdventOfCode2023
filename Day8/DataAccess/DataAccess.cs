@@ -15,6 +15,7 @@ namespace Day8.DataAccess
         private string _sequenceString;
         private string[] _allPositionLines;
         public char[] sequenceCharacters;
+        public string[] positionsThatEndInA;
 
         
         public DataAccess(string positionsFilePath, string sequenceFilePath)
@@ -25,6 +26,8 @@ namespace Day8.DataAccess
             _sequenceString = File.ReadAllText(_sequenceFilePath);
             DictionaryConstructor();
             SequenceArrayConstructor();
+            PositionsThatEndinA();
+            Console.WriteLine($"There are {positionsThatEndInA.Length} positions that end in A");
         }
 
         private void DictionaryConstructor()
@@ -42,6 +45,19 @@ namespace Day8.DataAccess
             }
         }
 
+        private void PositionsThatEndinA()
+        {
+            List<string> positions = new List<string>();
+            foreach (string keys in positionAndDirections.Keys)
+            {
+                if (keys.EndsWith("A"))
+                {
+                    positions.Add(keys);
+                }
+            }
+            positionsThatEndInA = positions.ToArray();
+
+        }
         private void SequenceArrayConstructor()
         {
             List<char> sequence = new List<char>();
