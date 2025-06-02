@@ -16,8 +16,17 @@ public class Program
             Console.WriteLine(position);
         }
         var navigator = new Part2_Navigator(dataAccess.positionAndDirections, dataAccess.sequenceCharacters, dataAccess.positionsThatEndInA);
-        int steps = navigator.TraverseUntilAllPositionsEndInZ();
+        int[] steps = navigator.TraverseUntilAllPositionsEndInZ();
         //int steps = navigator.TraverseUntil("ZZZ");
-        Console.WriteLine($"\nTraversal completed in {steps} steps.");
+
+        LCM lcmCalculator = new LCM(steps);
+        Console.WriteLine($"Minimum number of steps = {lcmCalculator.lcmOfPaths}");
+        
+        int indexOfMaps = 0;
+        foreach (int step in steps)
+        {
+            indexOfMaps++;
+            Console.WriteLine($"Map {indexOfMaps} has {step} steps");
+        }
     }
 }

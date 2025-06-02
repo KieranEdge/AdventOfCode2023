@@ -24,30 +24,33 @@ namespace Day8.Navigation
             _numberOfPositionsThatEndWithA = _positionsThatEndWithA.Length;
         }
 
-        public int TraverseUntilAllPositionsEndInZ()
+        public int[] TraverseUntilAllPositionsEndInZ()
         {
-            int steps = 0;
+            // Using LCM Approach
+            int[] stepsForEach = new int[_numberOfPositionsThatEndWithA];
             Console.WriteLine($"There are {_numberOfPositionsThatEndWithA}, that end with A");
+            int index = 0;
 
-            while (!_stopTraversing)
+            foreach (string position in _positionsThatEndWithA) 
             {
-                // Iterating over the positions that end with A
-                int index = 0;
-                foreach (string position in _positionsThatEndWithA)
+                // Initialising the search index and position
+                Console.WriteLine($"Processing Map {index + 1}, starting at {position}");
+                _sequenceIndex = 0;
+                _currentPosition = position;
+                int steps = 0;
+
+                while (!_currentPosition.EndsWith('Z'))
                 {
-                    Step(position, index);
-                    index++;
+                    Step(_currentPosition);
+                    steps++;
                 }
-                steps++;
-                _sequenceIndex = (_sequenceIndex + 1) % _sequence.Length;
-
-                DoAllPositionsEndInZ();
+                stepsForEach[index] = steps;
+                index++;
             }
-
-            return steps;
+            return stepsForEach;
         }
 
-        private void Step(string position, int index)
+        private void Step(string position)
         {
             // Getting the direction
             char direction = _sequence[_sequenceIndex];
@@ -57,8 +60,7 @@ namespace Day8.Navigation
                 ? _map[position].Left
                 : _map[position].Right;
 
-            // Putting the next position in the index
-            _positionsThatEndWithA[index] = _currentPosition;
+            _sequenceIndex = (_sequenceIndex + 1) % _sequence.Length;
             // Console.WriteLine($"Step {_sequenceIndex + 1}: Map {index}, Moving to {_currentPosition} in '{direction}' direction");
         }
 
